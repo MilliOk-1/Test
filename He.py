@@ -2,19 +2,11 @@ import tkinter as tk
 from tkinter import messagebox
 import csv
 
-
 class PersonalFinanceTracker:
-    """
-    A class to track personal finance records and update balance.
-    """
+    """A simple personal finance tracker application."""
 
     def __init__(self, root):
-        """
-        Initializes the main application window and widgets.
-
-        Args:
-            root (tk.Tk): The root tkinter window.
-        """
+        """Initialize the application."""
         self.root = root
         self.root.title("Personal Finance Tracker")
 
@@ -59,9 +51,7 @@ class PersonalFinanceTracker:
         self.button_load.pack(pady=5)
 
     def add_record(self):
-        """
-        Adds a new record to the list of records and updates the balance.
-        """
+        """Add a new record to the finance tracker."""
         try:
             description = self.entry_description.get()
             amount = float(self.entry_amount.get())
@@ -84,19 +74,15 @@ class PersonalFinanceTracker:
 
             messagebox.showinfo("Success", "Record added successfully!")
 
-        except ValueError as e:
-            messagebox.showerror("Error", f"Invalid input: {e}")
+        except ValueError as error:
+            messagebox.showerror("Error", f"Invalid input: {error}")
 
     def update_balance(self):
-        """
-        Updates the balance label on the UI.
-        """
+        """Update the displayed balance."""
         self.label_balance.config(text=f"Balance: ${self.balance:.2f}")
 
     def view_records(self):
-        """
-        Opens a new window to display the transaction records.
-        """
+        """Display all records in a new window."""
         view_window = tk.Toplevel(self.root)
         view_window.title("Transaction Records")
 
@@ -108,22 +94,18 @@ class PersonalFinanceTracker:
             tk.Label(view_window, text=f"${record['Amount']:.2f}").grid(row=i, column=1, padx=10, pady=2)
 
     def save_records(self):
-        """
-        Saves all records to a CSV file.
-        """
+        """Save records to a CSV file."""
         try:
             with open("finance_records.csv", "w", newline="") as file:
                 writer = csv.DictWriter(file, fieldnames=["Description", "Amount"])
                 writer.writeheader()
                 writer.writerows(self.records)
             messagebox.showinfo("Success", "Records saved to finance_records.csv")
-        except Exception as e:
-            messagebox.showerror("Error", f"Failed to save records: {e}")
+        except Exception as error:
+            messagebox.showerror("Error", f"Failed to save records: {error}")
 
     def load_records(self):
-        """
-        Loads records from a CSV file and updates the balance.
-        """
+        """Load records from a CSV file."""
         try:
             with open("finance_records.csv", "r") as file:
                 reader = csv.DictReader(file)
@@ -139,12 +121,10 @@ class PersonalFinanceTracker:
             messagebox.showinfo("Success", "Records loaded successfully!")
         except FileNotFoundError:
             messagebox.showerror("Error", "No saved records found.")
-        except Exception as e:
-            messagebox.showerror("Error", f"Failed to load records: {e}")
-
+        except Exception as error:
+            messagebox.showerror("Error", f"Failed to load records: {error}")
 
 # Create the application window
-if __name__ == "__main__":
-    root = tk.Tk()
-    app = PersonalFinanceTracker(root)
-    root.mainloop()
+root = tk.Tk()
+app = PersonalFinanceTracker(root)
+root.mainloop()

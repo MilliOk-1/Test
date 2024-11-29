@@ -1,6 +1,7 @@
+import csv
 import tkinter as tk
 from tkinter import messagebox
-import csv
+
 
 class PersonalFinanceTracker:
     """A simple personal finance tracker application."""
@@ -123,6 +124,7 @@ class PersonalFinanceTracker:
             messagebox.showerror("Error", "No saved records found.")
         except Exception as error:
             messagebox.showerror("Error", f"Failed to load records: {error}")
+
 
 # Create the application window
 root = tk.Tk()
